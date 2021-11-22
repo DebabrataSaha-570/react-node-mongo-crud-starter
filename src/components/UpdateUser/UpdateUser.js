@@ -31,7 +31,24 @@ const UpdateUser = () => {
         updatedUser.email = updatedEmail;
         setUser(updatedUser)
     }
-    const handleUpdateUser = () => {
+    const handleUpdateUser = (e) => {
+        e.preventDefault()
+
+        fetch(`http://localhost:5000/users/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-type': 'application/json; charset=UTF-8', },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.modifiedCount > 0) {
+                    alert('user Updated successfully')
+                    setUser({})
+                }
+
+            })
+
 
     }
     return (
